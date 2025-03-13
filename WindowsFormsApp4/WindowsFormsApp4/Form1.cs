@@ -46,8 +46,8 @@ namespace WindowsFormsApp4
             Theme.DropDownItems.Add(darkTheme);
             Theme.DropDownItems.Add(lightTheme);
 
-            var showToolbar = new ToolStripMenuItem("Show Toolbar") { CheckOnClick = true };
-            var showStatusBar = new ToolStripMenuItem("Show Status Bar") { CheckOnClick = true };
+            var showToolbar = new ToolStripMenuItem("Show Toolbar", null, instrument_Click) { CheckOnClick = true };
+            var showStatusBar = new ToolStripMenuItem("Show Status Bar", null, status_Click) { CheckOnClick = true };
 
             Options.DropDownItems.Add(showToolbar);
             Options.DropDownItems.Add(showStatusBar);
@@ -141,12 +141,13 @@ namespace WindowsFormsApp4
 
         private void instrument_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Instrument");
+            toolStrip1.Visible = true;
         }
 
         private void status_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Status Bar");
+            statusStrip1.Visible = true;
         }
+
     }
 }
