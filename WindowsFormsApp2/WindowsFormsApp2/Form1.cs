@@ -23,11 +23,55 @@ namespace WindowsFormsApp2
         private int Index = 0;
         private int Answers = 0;
         private int Attempt = 0;
+        private bool IsDragging = false;
+        private Point location;
+        private bool isHolding = false;
+        private Control item;
+
         public Form1()
         {
             InitializeComponent();
             Form1_Load(null, null);
+            Dragev();
         }
+
+        private void Dragev()
+        {
+            foreach (Control control in this.Controls)
+            {
+                control.MouseDown += Control_MouseDown;
+                control.MouseMove += Control_MouseMove;
+                control.MouseUp += Control_MouseUp;
+            }
+        }
+
+        private void Control_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                IsDragging = true;
+                item = sender as Control;
+                location = e.Location;
+                this.Cursor = Cursors.Hand;
+            }
+        }
+
+        private void Control_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsDragging && item != null)
+            {
+                item.Left += e.X - location.X;
+                item.Top += e.Y - location.Y;
+            }
+        }
+
+        private void Control_MouseUp(object sender, MouseEventArgs e)
+        {
+            IsDragging = false;
+            item = null;
+            this.Cursor = Cursors.Default;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string userAnswer = textBox1.Text.ToLower();
